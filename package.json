@@ -9,7 +9,9 @@
 	"categories": [
 		"Other"
 	],
-	"activationEvents": [],
+	"activationEvents": [
+		"onStartupFinished"
+	],
 	"main": "./dist/extension.js",
 	"contributes": {
 		"viewsContainers": {
@@ -31,8 +33,8 @@
 		},
 		"commands": [
 			{
-				"command": "pully-the-pr-manager.helloWorld",
-				"title": "Hello World"
+				"command": "pully-the-pr-manager.connectToGitProvider",
+				"title": "Pully: Connect to your Git provider"
 			}
 		]
 	},
