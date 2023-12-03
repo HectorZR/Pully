@@ -2,10 +2,10 @@ import * as vscode from 'vscode';
 import { Command } from './types';
 
 export class BaseCommand implements Command {
-	public name: string;
+	private nameRoot: string = 'pully-the-pr-manager.';
 	public isPrivate: boolean;
-	constructor() {
-		this.name = 'pully-the-pr-manager.';
+
+	constructor(public name: string) {
 		this.isPrivate = false;
 	}
 
@@ -15,7 +15,7 @@ export class BaseCommand implements Command {
 
 	registerCommand() {
 		const registeredCommand = vscode.commands.registerCommand(
-			this.name,
+			`${this.nameRoot}${this.name}`,
 			this.command
 		);
 		return registeredCommand;

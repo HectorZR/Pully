@@ -1,9 +1,8 @@
 import { BaseCommand } from './settings/BaseCommand';
 
 export class ConnectToGitProviderCommand extends BaseCommand {
-	constructor() {
-		super();
-		this.name += `connectToGitProvider`;
+	constructor(public context: vscode.ExtensionContext) {
+		super('connectToGitProvider');
 	}
 
 	command() {
