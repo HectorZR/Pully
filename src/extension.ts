@@ -18,7 +18,11 @@ export function activate(context: vscode.ExtensionContext) {
 	// register commands
 	const commands = [ConnectToGitProviderCommand];
 	commands.forEach((command) => {
-		const commandInstance = new command();
+		const commandInstance = new command(context);
+
+		if (commandInstance.isPrivate) {
+			return;
+		}
 
 		context.subscriptions.push(commandInstance.registerCommand());
 	});
