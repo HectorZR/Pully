@@ -3,6 +3,7 @@
 	"displayName": "Pully - The PR Manager",
 	"description": "A PR manager for you",
 	"version": "0.0.1",
+	"publisher": "HectorZR",
 	"engines": {
 		"vscode": "^1.84.0"
 	},

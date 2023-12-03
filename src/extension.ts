@@ -4,6 +4,7 @@ import { config } from 'dotenv';
 import * as vscode from 'vscode';
 import { SidebarProvider } from './SidebarProvider';
 import { ConnectToGitProviderCommand } from './commands/ConnectToGitProviderCommand';
+import { AuthUriHandler } from './handlers/AuthUriHandler';
 
 config({ path: __dirname + '/../.env' });
 
@@ -14,12 +15,17 @@ export function activate(context: vscode.ExtensionContext) {
 		new SidebarProvider()
 	);
 
+	// register commands
 	const commands = [ConnectToGitProviderCommand];
 	commands.forEach((command) => {
 		const commandInstance = new command();
 
 		context.subscriptions.push(commandInstance.registerCommand());
 	});
+
+	// register handlers
+	const uriHandler = new AuthUriHandler();
+	uriHandler.registerUriHandler();
 }
 
 export function deactivate() {}
