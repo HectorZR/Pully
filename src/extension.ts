@@ -24,8 +24,7 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	// register handlers
-	const uriHandler = new AuthUriHandler();
-	uriHandler.registerUriHandler();
+	AuthUriHandler.registerUriHandler();
 }
 
 export function deactivate() {}

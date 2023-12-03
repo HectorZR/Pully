@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 
 export class AuthUriHandler {
-	handleUri(uri: vscode.Uri) {
+	static handleUri(uri: vscode.Uri) {
 		const queryParams = new URLSearchParams(uri.query);
 		if (queryParams.has('code')) {
 			vscode.window.showInformationMessage(
@@ -10,9 +10,9 @@ export class AuthUriHandler {
 		}
 	}
 
-	registerUriHandler() {
+	static registerUriHandler() {
 		vscode.window.registerUriHandler({
-			handleUri: this.handleUri,
+			handleUri: AuthUriHandler.handleUri,
 		});
 	}
 }
