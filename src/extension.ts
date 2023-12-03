@@ -1,8 +1,11 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
+import { config } from 'dotenv';
 import * as vscode from 'vscode';
 import { SidebarProvider } from './SidebarProvider';
 import { ConnectToGitProviderCommand } from './commands/ConnectToGitProviderCommand';
+
+config({ path: __dirname + '/../.env' });
 
 export function activate(context: vscode.ExtensionContext) {
 	// Create a new sidebar item
