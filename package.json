@@ -12,6 +12,23 @@
 	"activationEvents": [],
 	"main": "./dist/extension.js",
 	"contributes": {
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "pully-the-pr-manager",
+					"title": "Pully - The PR Manager",
+					"icon": "media/icon.svg"
+				}
+			]
+		},
+		"views": {
+			"pully-the-pr-manager": [
+				{
+					"id": "pully-the-pr-manager",
+					"name": "Pully - The PR Manager"
+				}
+			]
+		},
 		"commands": [
 			{
 				"command": "pully-the-pr-manager.helloWorld",
