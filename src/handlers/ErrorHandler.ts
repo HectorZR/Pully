@@ -1,12 +1,12 @@
-import * as vscode from 'vscode';
+import { NotifierHandler } from './NotifierHandler';
 
 export class ErrorHandler {
 	static handleError(error: unknown) {
 		if (error instanceof Error) {
-			vscode.window.showErrorMessage(error.message);
+			NotifierHandler.error(error.message);
 		}
 		if (typeof error === 'string') {
-			vscode.window.showErrorMessage(error);
+			NotifierHandler.error(error);
 		}
 	}
 }
