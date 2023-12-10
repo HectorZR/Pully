@@ -1,5 +1,6 @@
-import * as vscode from 'vscode';
+import { env, Uri } from 'vscode';
 import { ErrorHandler } from '../handlers/ErrorHandler';
+import { NotifierHandler } from '../handlers/NotifierHandler';
 import { AuthTokenResponse } from './types';
 
 export class GetGithubAccess {
@@ -10,7 +11,7 @@ export class GetGithubAccess {
 				client_id: process.env.GITHUB_CLIENT_ID ?? '',
 				state: new Date().getTime().toString(),
 			});
-		vscode.env.openExternal(vscode.Uri.parse(url));
+		env.openExternal(Uri.parse(url));
 	}
 
 	static getAccessToken(code: string, state: string) {
@@ -32,13 +33,15 @@ export class GetGithubAccess {
 		fetch(url, options)
 			.then((response) => response.json())
 			.then((data) => {
-				// TODO: save access token to global or secret state and use it to make requests
 				console.log('data', data);
-				if (data && typeof data === 'object' && 'access_token' in data) {
-					vscode.window.showInformationMessage(
-						'this is your access token: ' + data.access_token
+				if (!(data && typeof data === 'object' && 'access_token' in data)) {
+					NotifierHandler.error(
+						'Something went wrong while getting access token'
 					);
+					return;
 				}
+
+				// TODO: save access token to global or secret state and use it to make requests
 			})
 			.catch((error) => {
 				console.error(error);

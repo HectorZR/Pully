@@ -1,4 +1,4 @@
-import * as vscode from 'vscode';
+import { window } from 'vscode';
 import { GetGithubAccess } from '../services/GetGithubAccess';
 import { ErrorHandler } from '../handlers/ErrorHandler';
 import { GITHUB_PROVIDER } from '../constants/gitProviders';
@@ -11,7 +11,7 @@ export class ConnectToGitProviderCommand extends BaseCommand {
 	}
 
 	command() {
-		vscode.window.showQuickPick([GITHUB_PROVIDER]).then((provider) => {
+		window.showQuickPick([GITHUB_PROVIDER]).then((provider) => {
 			EditorStorage.set(StorageKeys.GLOBAL_GIT_PROVIDER, provider);
 
 			switch (provider) {

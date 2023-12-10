@@ -1,9 +1,9 @@
-import * as vscode from 'vscode';
+import type { ExtensionContext } from 'vscode';
 
 class ContextHandler {
-	private context: vscode.ExtensionContext | null = null;
+	private context: ExtensionContext | null = null;
 
-	setContext(context: vscode.ExtensionContext) {
+	setContext(context: ExtensionContext) {
 		this.context = context;
 	}
 

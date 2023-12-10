@@ -1,4 +1,4 @@
-import * as vscode from 'vscode';
+import { commands } from 'vscode';
 import { Command } from './types';
 
 export class BaseCommand implements Command {
@@ -14,7 +14,7 @@ export class BaseCommand implements Command {
 	}
 
 	registerCommand() {
-		const registeredCommand = vscode.commands.registerCommand(
+		const registeredCommand = commands.registerCommand(
 			`${this.nameRoot}${this.name}`,
 			this.command
 		);
