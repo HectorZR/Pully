@@ -1,6 +1,6 @@
 import { env, Uri } from 'vscode';
-import { ErrorHandler } from '../handlers/ErrorHandler';
-import { NotifierHandler } from '../handlers/NotifierHandler';
+import { ErrorHandler, NotifierHandler } from '../handlers';
+import { EditorStorage, StorageKeys } from '../storages/EditorStorage';
 import { AuthTokenResponse } from './types';
 
 export class GetGithubAccess {
@@ -41,7 +41,7 @@ export class GetGithubAccess {
 					return;
 				}
 
-				// TODO: save access token to global or secret state and use it to make requests
+				EditorStorage.set(StorageKeys.SECRET_AUTH, data, 'secret');
 			})
 			.catch((error) => {
 				console.error(error);

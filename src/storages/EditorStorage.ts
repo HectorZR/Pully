@@ -1,4 +1,4 @@
-import { contextHandler } from '../handlers/ContextHandler';
+import { contextHandler } from '../handlers';
 
 type StorageType = 'global' | 'secret';
 
@@ -24,4 +24,5 @@ export class EditorStorage {
 
 export enum StorageKeys {
 	GLOBAL_GIT_PROVIDER = 'gitProvider',
+	SECRET_AUTH = 'auth',
 }

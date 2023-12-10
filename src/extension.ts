@@ -2,10 +2,9 @@
 // Import the module and reference it with the alias vscode in your code below
 import { config } from 'dotenv';
 import * as vscode from 'vscode';
-import { SidebarProvider } from './SidebarProvider';
-import { ConnectToGitProviderCommand } from './commands/ConnectToGitProviderCommand';
-import { AuthUriHandler } from './handlers/AuthUriHandler';
-import { contextHandler } from './handlers/ContextHandler';
+import { SidebarProvider } from './providers';
+import { ConnectToGitProviderCommand } from './commands';
+import { AuthUriHandler, contextHandler } from './handlers';
 
 config({ path: __dirname + '/../.env' });
 
