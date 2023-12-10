@@ -5,10 +5,14 @@ import * as vscode from 'vscode';
 import { SidebarProvider } from './SidebarProvider';
 import { ConnectToGitProviderCommand } from './commands/ConnectToGitProviderCommand';
 import { AuthUriHandler } from './handlers/AuthUriHandler';
+import { contextHandler } from './handlers/ContextHandler';
 
 config({ path: __dirname + '/../.env' });
 
 export function activate(context: vscode.ExtensionContext) {
+	// Store context in memory to make it globally accessible
+	contextHandler.setContext(context);
+
 	// Create a new sidebar item
 	vscode.window.registerTreeDataProvider(
 		'pully-the-pr-manager',
@@ -18,7 +22,7 @@ export function activate(context: vscode.ExtensionContext) {
 	// register commands
 	const commands = [ConnectToGitProviderCommand];
 	commands.forEach((command) => {
-		const commandInstance = new command(context);
+		const commandInstance = new command();
 
 		if (commandInstance.isPrivate) {
 			return;
@@ -28,7 +32,7 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	// register handlers
-	new AuthUriHandler(context).registerUriHandler();
+	AuthUriHandler.registerUriHandler();
 }
 
 export function deactivate() {}

@@ -1,16 +1,13 @@
 import * as vscode from 'vscode';
 import { GetGithubAccess } from '../services/GetGithubAccess';
 import { GITHUB_PROVIDER } from '../constants/gitProviders';
+import { EditorStorage } from '../storages/EditorStorage';
 
 export class AuthUriHandler {
-	constructor(public context: vscode.ExtensionContext) {
-		this.handleUri = this.handleUri.bind(this);
-	}
-
-	handleUri(uri: vscode.Uri) {
+	static handleUri(uri: vscode.Uri) {
 		const queryParams = new URLSearchParams(uri.query);
 		const isGithubProvider =
-			this.context.globalState.get('gitProvider') === GITHUB_PROVIDER;
+			EditorStorage.get('gitProvider') === GITHUB_PROVIDER;
 
 		const authCode = queryParams.get('code');
 		const stateCode = queryParams.get('state');
@@ -19,9 +16,9 @@ export class AuthUriHandler {
 		}
 	}
 
-	registerUriHandler() {
+	static registerUriHandler() {
 		vscode.window.registerUriHandler({
-			handleUri: this.handleUri,
+			handleUri: AuthUriHandler.handleUri,
 		});
 	}
 }
