@@ -1,11 +1,12 @@
 import { Uri, env } from 'vscode';
-import { Octokit, App } from 'octokit';
+import { App, Octokit } from 'octokit';
 import { ErrorHandler, NotifierHandler } from '../handlers';
 import { EditorStorage, SecretStorageKeys } from '../storages/EditorStorage';
 import { TokenInfo } from './types';
 
+// TODO: add logic to refresh token
+
 class GithubProvider {
-	public client: Octokit | undefined;
 	private app: App | undefined;
 	private token = '';
 	private tokenExpiresAt = '';
@@ -22,7 +23,6 @@ class GithubProvider {
 			},
 		});
 
-		this.client = this.app.octokit;
 		this.retrieveTokenInfo();
 	}
 
@@ -41,7 +41,6 @@ class GithubProvider {
 	}
 
 	async getAccessToken(code: string, state: string) {
-		console.log('Getting access token');
 		if (!this.app) {
 			return NotifierHandler.error('Github provider not initialized');
 		}
@@ -55,7 +54,6 @@ class GithubProvider {
 				return NotifierHandler.error('No valid token retrieved');
 			}
 
-			console.log('auth', auth);
 			await this.saveTokenInfo({
 				token: auth.token,
 				refreshToken: auth.refreshToken,
@@ -107,6 +105,21 @@ class GithubProvider {
 			SecretStorageKeys.REFRESH_TOKEN_EXPIRES_AT,
 			this.refreshTokenExpiresAt
 		);
+	}
+
+	async getClient() {
+		if (!this.app) {
+			NotifierHandler.error('Github provider not initialized');
+			throw new Error('Github provider not initialized');
+		}
+		const client = (await this.app.oauth.getUserOctokit({
+			token: this.token,
+			expiresAt: this.tokenExpiresAt,
+			refreshToken: this.refreshToken,
+			refreshTokenExpiresAt: this.refreshTokenExpiresAt,
+		})) as Octokit;
+
+		return client;
 	}
 }
 

@@ -10,11 +10,19 @@ export class SidebarProvider implements vscode.TreeDataProvider<TreeItem> {
 	getChildren(element?: TreeItem): vscode.ProviderResult<TreeItem[]> {
 		const items: TreeItem[] = [
 			{
-				label: '🔍 Search',
+				label: '🔗 Connect to Git Provider',
 				collapsibleState: vscode.TreeItemCollapsibleState.None,
 				command: {
-					title: 'Open Search',
-					command: 'pully-the-pr-manager.openSearch',
+					title: 'Connect to Git Provider',
+					command: 'pully-the-pr-manager.connectToGitProvider',
+				},
+			},
+			{
+				label: '🔍 Search PR',
+				collapsibleState: vscode.TreeItemCollapsibleState.None,
+				command: {
+					title: 'Search PR',
+					command: 'pully-the-pr-manager.getPullRequest',
 				},
 			},
 			{

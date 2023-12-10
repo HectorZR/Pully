@@ -3,7 +3,7 @@
 import { config } from 'dotenv';
 import * as vscode from 'vscode';
 import { SidebarProvider, githubProvider } from './providers';
-import { ConnectToGitProviderCommand } from './commands';
+import { ConnectToGitProviderCommand, GetPullRequestCommand } from './commands';
 import { AuthUriHandler, contextHandler } from './handlers';
 
 config({ path: __dirname + '/../.env' });
@@ -19,7 +19,7 @@ export function activate(context: vscode.ExtensionContext) {
 	);
 
 	// register commands
-	const commands = [ConnectToGitProviderCommand];
+	const commands = [ConnectToGitProviderCommand, GetPullRequestCommand];
 	commands.forEach((command) => {
 		const commandInstance = new command();
 

@@ -10,8 +10,9 @@ export class ConnectToGitProviderCommand extends BaseCommand {
 		super('connectToGitProvider');
 	}
 
-	command() {
-		window.showQuickPick([GITHUB_PROVIDER]).then((provider) => {
+	async command() {
+		try {
+			const provider = await window.showQuickPick([GITHUB_PROVIDER]);
 			EditorStorage.set(GlobalStorageKeys.GIT_PROVIDER, provider);
 
 			switch (provider) {
@@ -23,6 +24,8 @@ export class ConnectToGitProviderCommand extends BaseCommand {
 					ErrorHandler.handleError('No provider selected');
 					break;
 			}
-		});
+		} catch (error) {
+			ErrorHandler.handleError(error);
+		}
 	}
 }
