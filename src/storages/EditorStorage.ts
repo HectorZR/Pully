@@ -21,3 +21,7 @@ export class EditorStorage {
 		context.globalState.update(key, value);
 	}
 }
+
+export enum StorageKeys {
+	GLOBAL_GIT_PROVIDER = 'gitProvider',
+}
