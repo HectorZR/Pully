@@ -2,7 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import { config } from 'dotenv';
 import * as vscode from 'vscode';
-import { SidebarProvider } from './providers';
+import { SidebarProvider, githubProvider } from './providers';
 import { ConnectToGitProviderCommand } from './commands';
 import { AuthUriHandler, contextHandler } from './handlers';
 
@@ -32,6 +32,12 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// register handlers
 	AuthUriHandler.registerUriHandler();
+
+	// initialize providers
+	const providers = [githubProvider];
+	providers.forEach((provider) => {
+		provider.initializeProvider();
+	});
 }
 
 export function deactivate() {}

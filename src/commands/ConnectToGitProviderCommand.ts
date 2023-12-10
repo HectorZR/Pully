@@ -1,8 +1,8 @@
 import { window } from 'vscode';
-import { GetGithubAccess } from '../services/GetGithubAccess';
 import { ErrorHandler } from '../handlers';
+import { githubProvider } from '../providers';
 import { GITHUB_PROVIDER } from '../constants/gitProviders';
-import { EditorStorage, StorageKeys } from '../storages/EditorStorage';
+import { EditorStorage, GlobalStorageKeys } from '../storages/EditorStorage';
 import { BaseCommand } from './settings/BaseCommand';
 
 export class ConnectToGitProviderCommand extends BaseCommand {
@@ -12,11 +12,11 @@ export class ConnectToGitProviderCommand extends BaseCommand {
 
 	command() {
 		window.showQuickPick([GITHUB_PROVIDER]).then((provider) => {
-			EditorStorage.set(StorageKeys.GLOBAL_GIT_PROVIDER, provider);
+			EditorStorage.set(GlobalStorageKeys.GIT_PROVIDER, provider);
 
 			switch (provider) {
 				case GITHUB_PROVIDER:
-					GetGithubAccess.getAccessCode();
+					githubProvider.getAccessCode();
 					break;
 
 				default:
