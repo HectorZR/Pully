@@ -1,26 +1,30 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode';
+import { config } from 'dotenv';
+import { ExtensionContext, window } from 'vscode';
+import { SidebarProvider, gitProvider, githubProvider } from './providers';
+import { AuthUriHandler, contextHandler } from './handlers';
+import { CommandsInitializer } from './commands';
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
+config({ path: __dirname + '/../.env' });
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "pully-the-pr-manager" is now active!');
+export function activate(context: ExtensionContext) {
+	// Store context in memory to make it globally accessible
+	contextHandler.setContext(context);
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('pully-the-pr-manager.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from Pully - The PR Manager!');
+	// Create a new sidebar item
+	window.registerTreeDataProvider('pully-actions', new SidebarProvider());
+
+	new CommandsInitializer().initialize();
+
+	// register handlers
+	AuthUriHandler.registerUriHandler();
+
+	// initialize providers
+	const providers = [gitProvider, githubProvider];
+	providers.forEach((provider) => {
+		provider.initialize();
 	});
-
-	context.subscriptions.push(disposable);
 }
 
-// This method is called when your extension is deactivated
 export function deactivate() {}
