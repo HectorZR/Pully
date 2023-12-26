@@ -1,6 +1,6 @@
 import { window } from 'vscode';
 import { ErrorHandler, NotifierHandler } from '../handlers';
-import { githubProvider } from '../providers';
+import { gitProvider, githubProvider } from '../providers';
 import { EditorStorage, GlobalStorageKeys } from '../storages/EditorStorage';
 import { BaseCommand } from './settings/BaseCommand';
 import { GITHUB_PROVIDER } from '../constants/gitProviders';
@@ -19,19 +19,34 @@ export class GetPullRequestCommand extends BaseCommand {
 				placeHolder: 'Enter PR URL',
 				ignoreFocusOut: true,
 			});
-			const [owner, repo, _, pullNumber] = prUrl?.split('/')?.slice(-4) ?? [];
+			const [owner, repo, _, rawNumber] = prUrl?.split('/')?.slice(-4) ?? [];
 
-			if (!owner || !repo || !pullNumber) {
-				return NotifierHandler.info('No PR url provided');
+			if (!owner || !repo || !rawNumber) {
+				return NotifierHandler.info('No valid PR url provided');
 			}
 
-			const client = await githubProvider.getClient();
-			const res = await client.rest.pulls.get({
+			const pullNumber = Number(rawNumber);
+			const prRequestParams = {
 				owner,
 				repo,
-				pull_number: Number(pullNumber),
-			});
+				pull_number: pullNumber,
+			};
+			const client = await githubProvider.getClient();
+			const prInfo = await client.rest.pulls.get(prRequestParams);
+			const originBranch = prInfo.data.head.ref;
+			const targetBranch = prInfo.data.base.ref;
+			// const targetBranch = prInfo.data.base.sha;
 
+			const git = gitProvider.getGitExtension();
+			const repository = git.repositories[0];
+
+			if (!repository) {
+				return NotifierHandler.info('Open your project workspace first');
+			}
+
+			const changes = await repository.diffBetween(targetBranch, originBranch);
+
+			console.log(changes);
 		} catch (error) {
 			ErrorHandler.handleError(error);
 		}
