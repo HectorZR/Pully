@@ -3,13 +3,12 @@ import { ConnectToGitProviderCommand } from './ConnectToGitProviderCommand';
 import { GetPullRequestCommand } from './GetPullRequestCommand';
 
 export class CommandsInitializer {
-	private commands = [
-		new ConnectToGitProviderCommand(),
-		new GetPullRequestCommand(),
-	];
+	static initialize() {
+		const commands = [ConnectToGitProviderCommand, GetPullRequestCommand];
 
-	initialize() {
-		this.commands.forEach((command) => {
+		commands.forEach((CommandClass) => {
+			const command = new CommandClass();
+
 			if (command.isPrivate) {
 				return;
 			}

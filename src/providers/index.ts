@@ -1,3 +1,3 @@
 export * from './GitProvider';
 export * from './GithubProvider';
-export * from './SidebarProvider';
+export * from './ProvidersInitializer';

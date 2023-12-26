@@ -1,14 +1,15 @@
 import * as vscode from 'vscode';
 
-export class SidebarProvider implements vscode.TreeDataProvider<TreeItem> {
+export class ActionProvider implements vscode.TreeDataProvider<ActionItem> {
+	name: string = 'pully-actions';
 	constructor() {}
 
-	getTreeItem(element: TreeItem) {
+	getTreeItem(element: ActionItem) {
 		return element;
 	}
 
-	getChildren(element?: TreeItem): vscode.ProviderResult<TreeItem[]> {
-		const items: TreeItem[] = [
+	getChildren(element?: ActionItem): vscode.ProviderResult<ActionItem[]> {
+		const items: ActionItem[] = [
 			{
 				label: '🔗 Connect to Git Provider',
 				collapsibleState: vscode.TreeItemCollapsibleState.None,
@@ -39,5 +40,4 @@ export class SidebarProvider implements vscode.TreeDataProvider<TreeItem> {
 	}
 }
 
-
-class TreeItem extends vscode.TreeItem {}
+class ActionItem extends vscode.TreeItem {}
