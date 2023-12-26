@@ -27,8 +27,12 @@
 		"views": {
 			"pully-the-pr-manager": [
 				{
-					"id": "pully-the-pr-manager",
-					"name": "Pully - The PR Manager"
+					"id": "pully-actions",
+					"name": "Actions"
+				},
+				{
+					"id": "pully-changes",
+					"name": "Changes"
 				}
 			]
 		},
@@ -68,5 +72,8 @@
 	},
 	"dependencies": {
 		"octokit": "^3.1.2"
-	}
+	},
+	"extensionDependencies": [
+		"vscode.git"
+	]
 }
