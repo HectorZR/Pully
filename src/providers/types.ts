@@ -4,3 +4,7 @@ export interface TokenInfo {
 	refreshToken: string;
 	refreshTokenExpiresAt: string;
 }
+
+export interface Provider {
+	initialize(): void;
+}

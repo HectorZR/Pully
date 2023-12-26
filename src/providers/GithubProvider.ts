@@ -2,18 +2,18 @@ import { Uri, env } from 'vscode';
 import { App, Octokit } from 'octokit';
 import { ErrorHandler, NotifierHandler } from '../handlers';
 import { EditorStorage, SecretStorageKeys } from '../storages/EditorStorage';
-import { TokenInfo } from './types';
+import { Provider, TokenInfo } from './types';
 
 // TODO: add logic to refresh token
 
-class GithubProvider {
+class GithubProvider implements Provider {
 	private app: App | undefined;
 	private token = '';
 	private tokenExpiresAt = '';
 	private refreshToken = '';
 	private refreshTokenExpiresAt = '';
 
-	initializeProvider() {
+	initialize() {
 		this.app = new App({
 			appId: process.env.GITHUB_APP_ID,
 			privateKey: process.env.GITHUB_SECRET,
