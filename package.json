@@ -1,5 +1,5 @@
 {
-	"name": "pully-the-pr-manager",
+	"name": "pullyManager",
 	"displayName": "Pully - The PR Manager",
 	"description": "A PR manager for you",
 	"version": "0.0.1",
@@ -18,30 +18,45 @@
 		"viewsContainers": {
 			"activitybar": [
 				{
-					"id": "pully-the-pr-manager",
+					"id": "pullyManager",
 					"title": "Pully - The PR Manager",
-					"icon": "media/icon.svg"
+					"icon": "$(git-compare)"
 				}
 			]
 		},
 		"views": {
-			"pully-the-pr-manager": [
+			"pullyManager": [
 				{
 					"id": "pully-actions",
 					"name": "Actions"
 				},
 				{
 					"id": "pully-changes",
+					"type": "webview",
 					"name": "Changes"
 				}
 			]
 		},
 		"commands": [
 			{
-				"command": "pully-the-pr-manager.connectToGitProvider",
+				"command": "pullyManager.connectToGitProvider",
 				"title": "Pully: Connect to your Git provider"
+			},
+			{
+				"command": "pullyManager.getPullRequest",
+				"title": "Pully: Get PR changes",
+				"shortTitle": "Get PR changes",
+				"icon": "$(arrow-down)"
 			}
-		]
+		],
+		"menus": {
+			"view/title": [
+				{
+					"command": "pullyManager.getPullRequest",
+					"group": "navigation"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run package",

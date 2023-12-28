@@ -2,7 +2,7 @@ import { commands } from 'vscode';
 import { Command } from './types';
 
 export class BaseCommand implements Command {
-	private nameRoot: string = 'pully-the-pr-manager.';
+	private nameRoot: string = 'pullyManager.';
 	public isPrivate: boolean;
 
 	constructor(public name: string) {

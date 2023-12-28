@@ -15,7 +15,7 @@ export class ActionProvider implements vscode.TreeDataProvider<ActionItem> {
 				collapsibleState: vscode.TreeItemCollapsibleState.None,
 				command: {
 					title: 'Connect to Git Provider',
-					command: 'pully-the-pr-manager.connectToGitProvider',
+					command: 'pullyManager.connectToGitProvider',
 				},
 			},
 			{
@@ -23,7 +23,7 @@ export class ActionProvider implements vscode.TreeDataProvider<ActionItem> {
 				collapsibleState: vscode.TreeItemCollapsibleState.None,
 				command: {
 					title: 'Search PR',
-					command: 'pully-the-pr-manager.getPullRequest',
+					command: 'pullyManager.getPullRequest',
 				},
 			},
 			{
@@ -31,7 +31,7 @@ export class ActionProvider implements vscode.TreeDataProvider<ActionItem> {
 				collapsibleState: vscode.TreeItemCollapsibleState.None,
 				command: {
 					title: 'Open Pull Requests',
-					command: 'pully-the-pr-manager.openPullRequests',
+					command: 'pullyManager.openPullRequests',
 				},
 			},
 		];

@@ -1,8 +1,8 @@
 import { contextHandler } from '../handlers';
 
 export class EditorStorage {
-	static get(key: string) {
-		return contextHandler.getContext().globalState.get(key);
+	static get<T = unknown>(key: string) {
+		return contextHandler.getContext().globalState.get<T>(key);
 	}
 
 	static set(key: string, value: unknown) {

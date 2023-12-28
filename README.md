@@ -1,6 +1,6 @@
-# pully-the-pr-manager README
+# pullyManager README
 
-This is the README for your extension "pully-the-pr-manager". After writing up a brief description, we recommend including the following sections.
+This is the README for your extension "pullyManager". After writing up a brief description, we recommend including the following sections.
 
 ## Features
 
